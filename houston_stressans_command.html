@@ -1,0 +1,536 @@
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700&family=Barlow:wght@400;500;600&display=swap');
+:root {
+  --bull-red: #C8102E;
+  --bull-blue: #1B3F7A;
+  --bull-blue-light: #2855A0;
+  --bull-dark: #080B14;
+  --bull-gold: #A89060;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+#app { font-family: 'Barlow', sans-serif; color: var(--color-text-primary); }
+
+.header {
+  background: var(--bull-dark);
+  padding: 0 18px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  height: 62px;
+  border-radius: var(--border-radius-lg) var(--border-radius-lg) 0 0;
+  border-bottom: 2px solid var(--bull-red);
+  position: relative;
+  overflow: hidden;
+}
+.header::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; right: 0; bottom: 0;
+  background: linear-gradient(90deg, rgba(200,16,46,0.12) 0%, transparent 60%);
+  pointer-events: none;
+}
+.logo-wrap {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid var(--bull-red);
+  flex-shrink: 0;
+  background: var(--bull-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.logo-wrap img { width: 42px; height: 42px; object-fit: contain; border-radius: 50%; }
+.header-text {}
+.header-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 22px;
+  letter-spacing: 3px;
+  line-height: 1;
+}
+.header-title .houston { color: #5C8DD6; }
+.header-title .stress { color: var(--bull-red); }
+.header-sub { font-size: 11px; font-weight: 500; color: rgba(255,255,255,0.4); letter-spacing: 1px; text-transform: uppercase; margin-top: 2px; }
+.header-season { margin-left: auto; text-align: right; }
+.header-record { font-family: 'Bebas Neue', sans-serif; font-size: 20px; color: white; letter-spacing: 2px; }
+.header-label { font-size: 10px; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 1px; }
+
+.nav {
+  background: #0E1420;
+  display: flex;
+  gap: 1px;
+  padding: 8px 14px;
+  border-bottom: 0.5px solid rgba(200,16,46,0.3);
+  flex-wrap: wrap;
+  gap: 3px;
+}
+.nav-btn {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 5px 13px;
+  border-radius: 3px;
+  border: 0.5px solid transparent;
+  background: transparent;
+  color: rgba(255,255,255,0.45);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.nav-btn:hover { color: white; background: rgba(255,255,255,0.06); }
+.nav-btn.active { background: var(--bull-red); color: white; border-color: var(--bull-red); }
+
+.content { padding: 18px; background: var(--color-background-primary); }
+.section { display: none; }
+.section.active { display: block; }
+
+.page-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 26px;
+  letter-spacing: 3px;
+  color: var(--color-text-primary);
+  line-height: 1;
+}
+.page-sub { font-size: 12px; color: var(--color-text-secondary); margin-top: 3px; margin-bottom: 18px; letter-spacing: 0.5px; }
+
+.stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px,1fr)); gap: 10px; margin-bottom: 18px; }
+.stat-card {
+  background: var(--color-background-secondary);
+  border-radius: var(--border-radius-md);
+  padding: 12px 14px;
+  border-left: 3px solid var(--bull-red);
+}
+.stat-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: var(--color-text-secondary); margin-bottom: 4px; }
+.stat-val { font-family: 'Bebas Neue', sans-serif; font-size: 28px; letter-spacing: 1px; line-height: 1; color: var(--color-text-primary); }
+.stat-val.red { color: var(--bull-red); }
+.stat-val.blue { color: var(--bull-blue-light); }
+.stat-val.green { color: #1D9E75; }
+
+.card {
+  background: var(--color-background-primary);
+  border: 0.5px solid var(--color-border-tertiary);
+  border-radius: var(--border-radius-lg);
+  padding: 16px;
+  margin-bottom: 14px;
+}
+.card-accent { border-top: 2px solid var(--bull-red); }
+.card-blue-accent { border-top: 2px solid var(--bull-blue-light); }
+.card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+.card-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--color-text-primary);
+}
+
+.badge { font-size: 10px; font-weight: 700; padding: 3px 9px; border-radius: 3px; text-transform: uppercase; letter-spacing: 0.5px; }
+.badge-red { background: rgba(200,16,46,0.12); color: var(--bull-red); }
+.badge-blue { background: rgba(27,63,122,0.12); color: var(--bull-blue-light); }
+.badge-green { background: #EAF3DE; color: #3B6D11; }
+.badge-gold { background: #FAEEDA; color: #854F0B; }
+
+.player-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 0;
+  border-bottom: 0.5px solid var(--color-border-tertiary);
+}
+.player-row:last-child { border-bottom: none; padding-bottom: 0; }
+.player-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 22px;
+  color: var(--bull-red);
+  width: 30px;
+  text-align: center;
+  flex-shrink: 0;
+}
+.player-avatar {
+  width: 36px; height: 36px; border-radius: 50%;
+  background: var(--bull-dark);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px; font-weight: 700; color: white;
+  flex-shrink: 0;
+  border: 1.5px solid var(--bull-blue-light);
+}
+.player-name { font-weight: 600; font-size: 13px; color: var(--color-text-primary); }
+.player-pos { font-size: 11px; color: var(--color-text-secondary); }
+.player-val { margin-left: auto; text-align: right; }
+.player-salary { font-family: 'Barlow Condensed', sans-serif; font-size: 15px; font-weight: 700; color: var(--color-text-primary); }
+.player-years { font-size: 10px; color: var(--color-text-secondary); }
+
+.cap-bar { height: 6px; border-radius: 3px; background: var(--color-background-secondary); margin: 6px 0; overflow: hidden; }
+.cap-fill { height: 100%; border-radius: 3px; transition: width 0.6s ease; }
+.cap-red { background: var(--bull-red); }
+.cap-blue { background: var(--bull-blue-light); }
+.cap-warn { background: #EF9F27; }
+.cap-green { background: #1D9E75; }
+
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+@media(max-width:580px) { .two-col { grid-template-columns: 1fr; } }
+
+.draft-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px,1fr)); gap: 10px; }
+.draft-pick {
+  background: var(--color-background-secondary);
+  border-radius: var(--border-radius-md);
+  padding: 13px;
+  border-bottom: 3px solid var(--bull-red);
+  position: relative;
+}
+.draft-pick.trade { border-bottom-color: var(--bull-blue-light); }
+.pick-round { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: var(--bull-red); }
+.draft-pick.trade .pick-round { color: var(--bull-blue-light); }
+.pick-num { font-family: 'Bebas Neue', sans-serif; font-size: 34px; color: var(--color-text-primary); line-height: 1; }
+.pick-source { font-size: 10px; color: var(--color-text-secondary); margin-bottom: 8px; }
+.pick-prospect { font-size: 13px; font-weight: 600; color: var(--color-text-primary); }
+.pick-detail { font-size: 11px; color: var(--color-text-secondary); }
+
+.fa-row { display: grid; grid-template-columns: 1.4fr 0.8fr 70px 80px 80px; gap: 8px; padding: 9px 0; border-bottom: 0.5px solid var(--color-border-tertiary); align-items: center; font-size: 13px; }
+.fa-row:last-child { border-bottom: none; }
+.fa-header { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--color-text-secondary); }
+
+.tab-bar { display: flex; gap: 4px; margin-bottom: 14px; flex-wrap: wrap; }
+.tab { font-size: 12px; font-weight: 700; font-family: 'Barlow Condensed', sans-serif; letter-spacing: 0.5px; text-transform: uppercase; padding: 5px 12px; border-radius: 3px; border: 0.5px solid var(--color-border-tertiary); background: transparent; color: var(--color-text-secondary); cursor: pointer; }
+.tab.active { background: var(--bull-red); color: white; border-color: var(--bull-red); }
+
+.interest-btn { font-size: 11px; font-weight: 700; font-family: 'Barlow Condensed', sans-serif; text-transform: uppercase; letter-spacing: 0.5px; padding: 5px 10px; border-radius: 3px; border: 0.5px solid var(--color-border-tertiary); background: transparent; color: var(--color-text-primary); cursor: pointer; }
+.interest-btn:hover { background: var(--bull-red); color: white; border-color: var(--bull-red); }
+.interest-btn.hot { background: var(--bull-red); color: white; border-color: var(--bull-red); }
+
+.news-item { display: flex; gap: 12px; padding: 11px 0; border-bottom: 0.5px solid var(--color-border-tertiary); }
+.news-item:last-child { border-bottom: none; }
+.news-pip { width: 3px; border-radius: 2px; background: var(--bull-red); flex-shrink: 0; }
+.news-pip.blue { background: var(--bull-blue-light); }
+.news-pip.gold { background: #EF9F27; }
+.news-pip.green { background: #1D9E75; }
+.news-title { font-size: 13px; font-weight: 600; color: var(--color-text-primary); margin-bottom: 2px; }
+.news-meta { font-size: 11px; color: var(--color-text-secondary); }
+.news-tag { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--bull-red); font-size: 10px; }
+
+.depth-table { width: 100%; font-size: 12px; }
+.depth-table th { font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--color-text-secondary); padding: 5px 6px; text-align: left; border-bottom: 0.5px solid var(--color-border-tertiary); }
+.depth-table td { padding: 7px 6px; border-bottom: 0.5px solid var(--color-border-tertiary); vertical-align: top; }
+.depth-table tr:last-child td { border-bottom: none; }
+.depth-pos { font-family: 'Bebas Neue', sans-serif; font-size: 14px; color: var(--bull-red); letter-spacing: 1px; }
+.starter { font-weight: 600; color: var(--color-text-primary); }
+.backup { color: var(--color-text-secondary); }
+
+.scout-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(135px,1fr)); gap: 10px; }
+.scout-card {
+  background: var(--color-background-secondary);
+  border-radius: var(--border-radius-md);
+  padding: 12px;
+  text-align: center;
+  cursor: pointer;
+  border: 0.5px solid var(--color-border-tertiary);
+  transition: border-color 0.15s;
+}
+.scout-card:hover { border-color: var(--bull-red); }
+.scout-rank { font-family: 'Bebas Neue', sans-serif; font-size: 32px; color: var(--bull-red); line-height: 1; }
+.scout-name { font-size: 12px; font-weight: 700; color: var(--color-text-primary); margin: 3px 0 2px; }
+.scout-pos { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--bull-blue-light); }
+.scout-school { font-size: 10px; color: var(--color-text-secondary); margin-top: 2px; }
+
+.priority-block {
+  background: var(--color-background-secondary);
+  border-radius: var(--border-radius-md);
+  padding: 12px;
+}
+.priority-label { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 8px; }
+.priority-item { font-size: 13px; color: var(--color-text-primary); padding: 3px 0; border-bottom: 0.5px solid var(--color-border-tertiary); }
+.priority-item:last-child { border-bottom: none; }
+</style>
+
+<div id="app">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="logo-wrap">
+      <img src="/mnt/user-data/uploads/8860707ff_image.png" alt="Houston Stressans" />
+    </div>
+    <div class="header-text">
+      <div class="header-title">
+        <span class="houston">HOUSTON</span> <span class="stress">STRESSANS</span>
+      </div>
+      <div class="header-sub">Front Office Command Center · 2025 NFL</div>
+    </div>
+    <div class="header-season">
+      <div class="header-record">11–6</div>
+      <div class="header-label">Season Record</div>
+    </div>
+  </div>
+
+  <!-- NAV -->
+  <div class="nav">
+    <button class="nav-btn active" onclick="showSection('dashboard',this)">Dashboard</button>
+    <button class="nav-btn" onclick="showSection('roster',this)">Roster</button>
+    <button class="nav-btn" onclick="showSection('contracts',this)">Contracts</button>
+    <button class="nav-btn" onclick="showSection('draft',this)">Draft Room</button>
+    <button class="nav-btn" onclick="showSection('freeagents',this)">Free Agents</button>
+    <button class="nav-btn" onclick="showSection('depth',this)">Depth Chart</button>
+    <button class="nav-btn" onclick="showSection('news',this)">News & Intel</button>
+    <button class="nav-btn" onclick="showSection('scouting',this)">Scouting</button>
+  </div>
+
+  <div class="content">
+
+    <!-- DASHBOARD -->
+    <div class="section active" id="sec-dashboard">
+      <div class="page-title">Command Center</div>
+      <div class="page-sub">Houston Stressans · 2025 Offseason War Room</div>
+      <div class="stat-grid">
+        <div class="stat-card"><div class="stat-label">Win-Loss</div><div class="stat-val red">11–6</div></div>
+        <div class="stat-card"><div class="stat-label">Cap Space</div><div class="stat-val green">$24.3M</div></div>
+        <div class="stat-card"><div class="stat-label">Roster</div><div class="stat-val">53</div></div>
+        <div class="stat-card"><div class="stat-label">Draft Picks</div><div class="stat-val blue">7</div></div>
+        <div class="stat-card"><div class="stat-label">FA Targets</div><div class="stat-val red">12</div></div>
+        <div class="stat-card"><div class="stat-label">Expiring</div><div class="stat-val">8</div></div>
+      </div>
+      <div class="two-col">
+        <div class="card card-accent">
+          <div class="card-header"><div class="card-title">Cap Allocation</div><span class="badge badge-green">$24.3M Left</span></div>
+          <div style="font-size:12px; display:flex; justify-content:space-between; margin-bottom:3px;"><span style="color:var(--color-text-secondary)">Offense</span><span style="font-weight:700">$112.4M</span></div>
+          <div class="cap-bar"><div class="cap-fill cap-red" style="width:73%"></div></div>
+          <div style="font-size:12px; display:flex; justify-content:space-between; margin-top:10px; margin-bottom:3px;"><span style="color:var(--color-text-secondary)">Defense</span><span style="font-weight:700">$89.1M</span></div>
+          <div class="cap-bar"><div class="cap-fill cap-blue" style="width:58%"></div></div>
+          <div style="font-size:12px; display:flex; justify-content:space-between; margin-top:10px; margin-bottom:3px;"><span style="color:var(--color-text-secondary)">Special Teams</span><span style="font-weight:700">$14.2M</span></div>
+          <div class="cap-bar"><div class="cap-fill cap-warn" style="width:11%"></div></div>
+          <div style="font-size:10px; color:var(--color-text-secondary); margin-top:10px;">Total committed: $231.1M of $255.4M ceiling</div>
+        </div>
+        <div class="card card-blue-accent">
+          <div class="card-header"><div class="card-title">Key Alerts</div></div>
+          <div class="news-item"><div class="news-pip"></div><div><div class="news-title">Stroud extension window is open</div><div class="news-meta">Contract · 14 days to act</div></div></div>
+          <div class="news-item"><div class="news-pip gold"></div><div><div class="news-title">Tunsil restructure saves $9.2M</div><div class="news-meta">Contracts · Decision needed</div></div></div>
+          <div class="news-item"><div class="news-pip green"></div><div><div class="news-title">All 7 draft picks intact — no void years</div><div class="news-meta">Draft · No comp adjustments</div></div></div>
+          <div class="news-item"><div class="news-pip blue"></div><div><div class="news-title">3 FA visits scheduled this week</div><div class="news-meta">Free Agency · EDGE, CB, RB</div></div></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"><div class="card-title">Offseason Priority Matrix</div></div>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(130px,1fr)); gap:10px;">
+          <div class="priority-block" style="border-top:3px solid var(--bull-red)">
+            <div class="priority-label" style="color:var(--bull-red)">Critical</div>
+            <div class="priority-item">Stroud extension</div>
+            <div class="priority-item">EDGE pass rusher</div>
+            <div class="priority-item">OT depth signing</div>
+          </div>
+          <div class="priority-block" style="border-top:3px solid #EF9F27">
+            <div class="priority-label" style="color:#854F0B">High Priority</div>
+            <div class="priority-item">CB2 upgrade</div>
+            <div class="priority-item">RB rotation</div>
+            <div class="priority-item">S depth add</div>
+          </div>
+          <div class="priority-block" style="border-top:3px solid var(--bull-blue-light)">
+            <div class="priority-label" style="color:var(--bull-blue-light)">Draft Focus</div>
+            <div class="priority-item">Rd 1: EDGE / CB</div>
+            <div class="priority-item">Rd 2: OT / RB</div>
+            <div class="priority-item">Rd 3–7: BPA</div>
+          </div>
+          <div class="priority-block" style="border-top:3px solid #1D9E75">
+            <div class="priority-label" style="color:#3B6D11">Medium</div>
+            <div class="priority-item">TE2 addition</div>
+            <div class="priority-item">DT rotation</div>
+            <div class="priority-item">Camp bodies</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ROSTER -->
+    <div class="section" id="sec-roster">
+      <div class="page-title">53-Man Roster</div>
+      <div class="page-sub">Active roster · Houston Stressans 2025</div>
+      <div class="card card-accent">
+        <div class="card-header"><div class="card-title">Offense</div><span class="badge badge-blue">25 Players</span></div>
+        <div class="player-row"><div class="player-num">7</div><div class="player-avatar">CS</div><div style="flex:1"><div class="player-name">C.J. Stroud</div><div class="player-pos">QB · 2nd Year</div></div><div class="player-val"><div class="player-salary">$1.05M</div><div class="player-years">Rookie Deal</div></div><span class="badge badge-gold" style="margin-left:8px">Ext. Soon</span></div>
+        <div class="player-row"><div class="player-num">1</div><div class="player-avatar">SD</div><div style="flex:1"><div class="player-name">Stefon Diggs</div><div class="player-pos">WR · 10th Year</div></div><div class="player-val"><div class="player-salary">$17M</div><div class="player-years">2 yrs left</div></div><span class="badge badge-green" style="margin-left:8px">Signed</span></div>
+        <div class="player-row"><div class="player-num">10</div><div class="player-avatar">TD</div><div style="flex:1"><div class="player-name">Tank Dell</div><div class="player-pos">WR · 3rd Year</div></div><div class="player-val"><div class="player-salary">$1.1M</div><div class="player-years">1 yr left</div></div><span class="badge badge-gold" style="margin-left:8px">RFA</span></div>
+        <div class="player-row"><div class="player-num">82</div><div class="player-avatar">DS</div><div style="flex:1"><div class="player-name">Dalton Schultz</div><div class="player-pos">TE · 8th Year</div></div><div class="player-val"><div class="player-salary">$9M</div><div class="player-years">2 yrs left</div></div><span class="badge badge-green" style="margin-left:8px">Signed</span></div>
+        <div class="player-row"><div class="player-num">71</div><div class="player-avatar">LT</div><div style="flex:1"><div class="player-name">Laremy Tunsil</div><div class="player-pos">OT · 9th Year</div></div><div class="player-val"><div class="player-salary">$24M</div><div class="player-years">3 yrs left</div></div><span class="badge badge-red" style="margin-left:8px">Restructure?</span></div>
+      </div>
+      <div class="card card-blue-accent">
+        <div class="card-header"><div class="card-title">Defense</div><span class="badge badge-red">25 Players</span></div>
+        <div class="player-row"><div class="player-num">90</div><div class="player-avatar">WA</div><div style="flex:1"><div class="player-name">Will Anderson Jr.</div><div class="player-pos">EDGE · 3rd Year</div></div><div class="player-val"><div class="player-salary">$5.1M</div><div class="player-years">2 yrs left</div></div><span class="badge badge-green" style="margin-left:8px">Core</span></div>
+        <div class="player-row"><div class="player-num">99</div><div class="player-avatar">SR</div><div style="flex:1"><div class="player-name">Sheldon Rankins</div><div class="player-pos">DT · 10th Year</div></div><div class="player-val"><div class="player-salary">$8M</div><div class="player-years">FA 2026</div></div><span class="badge badge-gold" style="margin-left:8px">Monitor</span></div>
+        <div class="player-row"><div class="player-num">23</div><div class="player-avatar">DS</div><div style="flex:1"><div class="player-name">Derek Stingley Jr.</div><div class="player-pos">CB · 4th Year</div></div><div class="player-val"><div class="player-salary">$4.5M</div><div class="player-years">2 yrs left</div></div><span class="badge badge-green" style="margin-left:8px">Core</span></div>
+        <div class="player-row"><div class="player-num">32</div><div class="player-avatar">JW</div><div style="flex:1"><div class="player-name">Jimmie Ward</div><div class="player-pos">S · 12th Year</div></div><div class="player-val"><div class="player-salary">$7M</div><div class="player-years">1 yr left</div></div><span class="badge badge-gold" style="margin-left:8px">Vet</span></div>
+      </div>
+    </div>
+
+    <!-- CONTRACTS -->
+    <div class="section" id="sec-contracts">
+      <div class="page-title">Contract Management</div>
+      <div class="page-sub">Cap space, restructures & extensions</div>
+      <div class="stat-grid">
+        <div class="stat-card"><div class="stat-label">2025 Cap</div><div class="stat-val">$255.4M</div></div>
+        <div class="stat-card"><div class="stat-label">Committed</div><div class="stat-val red">$231.1M</div></div>
+        <div class="stat-card"><div class="stat-label">Available</div><div class="stat-val green">$24.3M</div></div>
+        <div class="stat-card"><div class="stat-label">Dead Cap</div><div class="stat-val blue">$18.2M</div></div>
+      </div>
+      <div class="card card-accent">
+        <div class="card-header"><div class="card-title">Top Contracts by Cap Hit</div></div>
+        <div class="player-row"><div class="player-num" style="font-size:16px;width:22px">1</div><div class="player-avatar">LT</div><div style="flex:1"><div class="player-name">Laremy Tunsil <span class="badge badge-red" style="margin-left:6px">OT</span></div><div class="player-pos">4yr / $96M · Void 2026</div><div class="cap-bar" style="width:100px;display:inline-block;vertical-align:middle;margin:0;"><div class="cap-fill cap-red" style="width:85%"></div></div></div><div class="player-val"><div class="player-salary">$24.0M</div><div class="player-years">2025 cap hit</div></div></div>
+        <div class="player-row"><div class="player-num" style="font-size:16px;width:22px">2</div><div class="player-avatar">SD</div><div style="flex:1"><div class="player-name">Stefon Diggs <span class="badge badge-blue" style="margin-left:6px">WR</span></div><div class="player-pos">3yr / $51M · Restructured</div><div class="cap-bar" style="width:100px;display:inline-block;vertical-align:middle;margin:0;"><div class="cap-fill cap-blue" style="width:60%"></div></div></div><div class="player-val"><div class="player-salary">$17.0M</div><div class="player-years">2025 cap hit</div></div></div>
+        <div class="player-row"><div class="player-num" style="font-size:16px;width:22px">3</div><div class="player-avatar">DS</div><div style="flex:1"><div class="player-name">Dalton Schultz <span class="badge badge-blue" style="margin-left:6px">TE</span></div><div class="player-pos">3yr / $27M · Signed 2023</div><div class="cap-bar" style="width:100px;display:inline-block;vertical-align:middle;margin:0;"><div class="cap-fill cap-blue" style="width:40%"></div></div></div><div class="player-val"><div class="player-salary">$9.0M</div><div class="player-years">2025 cap hit</div></div></div>
+        <div class="player-row"><div class="player-num" style="font-size:16px;width:22px">4</div><div class="player-avatar">CS</div><div style="flex:1"><div class="player-name">C.J. Stroud <span class="badge badge-gold" style="margin-left:6px">QB</span></div><div class="player-pos">Rookie deal · Extension eligible now</div><div class="cap-bar" style="width:100px;display:inline-block;vertical-align:middle;margin:0;"><div class="cap-fill cap-warn" style="width:5%"></div></div></div><div class="player-val"><div class="player-salary">$1.05M</div><div class="player-years">→ ~$45M ext.</div></div></div>
+      </div>
+      <div class="card">
+        <div class="card-header"><div class="card-title">Expiring Contracts 2025</div><span class="badge badge-red">8 Players</span></div>
+        <div class="fa-row fa-header"><span>Player</span><span>Pos · Age</span><span>AAV</span><span>Action</span><span>Status</span></div>
+        <div class="fa-row"><span style="font-weight:700">Jimmie Ward</span><span style="color:var(--color-text-secondary)">S · 32</span><span>$7M</span><button class="interest-btn" onclick="this.classList.toggle('hot'); this.textContent=this.classList.contains('hot')?'Extend':'Offer'">Offer</button><span class="badge badge-gold">Vet</span></div>
+        <div class="fa-row"><span style="font-weight:700">Sheldon Rankins</span><span style="color:var(--color-text-secondary)">DT · 30</span><span>$8M</span><button class="interest-btn">Offer</button><span class="badge badge-blue">Monitor</span></div>
+        <div class="fa-row"><span style="font-weight:700">Noah Brown</span><span style="color:var(--color-text-secondary)">WR · 28</span><span>$3M</span><button class="interest-btn">Offer</button><span class="badge badge-green">Available</span></div>
+        <div class="fa-row"><span style="font-weight:700">Tank Dell</span><span style="color:var(--color-text-secondary)">WR · 24</span><span>$1.1M</span><button class="interest-btn hot">Tender</button><span class="badge badge-red">RFA</span></div>
+      </div>
+    </div>
+
+    <!-- DRAFT ROOM -->
+    <div class="section" id="sec-draft">
+      <div class="page-title">Draft Room</div>
+      <div class="page-sub">2026 NFL Draft · Stressans picks board</div>
+      <div class="draft-grid">
+        <div class="draft-pick"><div class="pick-round">Round 1</div><div class="pick-num">#18</div><div class="pick-source">Own pick</div><div class="pick-prospect">Abdul Carter</div><div class="pick-detail">Penn State · EDGE</div></div>
+        <div class="draft-pick"><div class="pick-round">Round 2</div><div class="pick-num">#49</div><div class="pick-source">Own pick</div><div class="pick-prospect">Kelvin Banks Jr.</div><div class="pick-detail">Texas · OT</div></div>
+        <div class="draft-pick trade"><div class="pick-round">Round 2</div><div class="pick-num">#63</div><div class="pick-source">via Cleveland</div><div class="pick-prospect">Tyleik Williams</div><div class="pick-detail">Ohio State · DT</div></div>
+        <div class="draft-pick"><div class="pick-round">Round 3</div><div class="pick-num">#84</div><div class="pick-source">Own pick</div><div class="pick-prospect">Tre Ayers</div><div class="pick-detail">Oklahoma · CB</div></div>
+        <div class="draft-pick"><div class="pick-round">Round 4</div><div class="pick-num">#119</div><div class="pick-source">Own pick</div><div class="pick-prospect">BPA</div><div class="pick-detail">Best Player Available</div></div>
+        <div class="draft-pick trade"><div class="pick-round">Round 5</div><div class="pick-num">#158</div><div class="pick-source">via Denver</div><div class="pick-prospect">BPA</div><div class="pick-detail">Camp / special teams</div></div>
+        <div class="draft-pick"><div class="pick-round">Round 7</div><div class="pick-num">#231</div><div class="pick-source">Own pick</div><div class="pick-prospect">Camp Body</div><div class="pick-detail">Priority: ST ace</div></div>
+      </div>
+      <div class="card" style="margin-top:14px">
+        <div class="card-header"><div class="card-title">Trade Board — Incoming Offers</div></div>
+        <div class="player-row"><div style="flex:1"><div class="player-name">Denver Broncos</div><div class="player-pos">Offering 2026 2nd + CB for our 2026 1st</div></div><span class="badge badge-red">Decline</span><span class="badge badge-blue" style="margin-left:6px; cursor:pointer" onclick="sendPrompt('Should the Houston Stressans accept the Denver Broncos trade offer of a 2nd round pick and a CB for their 1st round pick?')">Counter ↗</span></div>
+        <div class="player-row"><div style="flex:1"><div class="player-name">New England Patriots</div><div class="player-pos">Offering 2026 1st (#6) for C.J. Stroud</div></div><span class="badge badge-red">Hard No</span></div>
+      </div>
+    </div>
+
+    <!-- FREE AGENTS -->
+    <div class="section" id="sec-freeagents">
+      <div class="page-title">Free Agent Targets</div>
+      <div class="page-sub">2026 NFL Free Agency · Stressans interest board</div>
+      <div class="tab-bar">
+        <button class="tab active" onclick="filterFA(this,'all')">All</button>
+        <button class="tab" onclick="filterFA(this,'edge')">EDGE</button>
+        <button class="tab" onclick="filterFA(this,'cb')">CB</button>
+        <button class="tab" onclick="filterFA(this,'rb')">RB</button>
+        <button class="tab" onclick="filterFA(this,'ot')">OT</button>
+      </div>
+      <div class="card">
+        <div class="fa-row fa-header"><span>Player</span><span>Pos · Age</span><span>Est. AAV</span><span>Interest</span><span>Status</span></div>
+        <div class="fa-row" data-pos="edge"><span style="font-weight:700">Josh Sweat</span><span style="color:var(--color-text-secondary)">EDGE · 28</span><span>$18M</span><button class="interest-btn hot">Watching</button><span class="badge badge-gold">Visit</span></div>
+        <div class="fa-row" data-pos="cb"><span style="font-weight:700">Emmanuel Forbes</span><span style="color:var(--color-text-secondary)">CB · 23</span><span>$8M</span><button class="interest-btn">Sign</button><span class="badge badge-green">Available</span></div>
+        <div class="fa-row" data-pos="rb"><span style="font-weight:700">Saquon Barkley</span><span style="color:var(--color-text-secondary)">RB · 28</span><span>$12M</span><button class="interest-btn">Sign</button><span class="badge badge-red">Signed NYG</span></div>
+        <div class="fa-row" data-pos="ot"><span style="font-weight:700">Mike McGlinchey</span><span style="color:var(--color-text-secondary)">OT · 29</span><span>$14M</span><button class="interest-btn hot">Watching</button><span class="badge badge-gold">Visit</span></div>
+        <div class="fa-row" data-pos="edge"><span style="font-weight:700">Leonard Floyd</span><span style="color:var(--color-text-secondary)">EDGE · 32</span><span>$11M</span><button class="interest-btn">Sign</button><span class="badge badge-green">Available</span></div>
+        <div class="fa-row" data-pos="cb"><span style="font-weight:700">Darius Slay</span><span style="color:var(--color-text-secondary)">CB · 34</span><span>$7M</span><button class="interest-btn">Sign</button><span class="badge badge-gold">Monitor</span></div>
+        <div class="fa-row" data-pos="rb"><span style="font-weight:700">Joe Mixon</span><span style="color:var(--color-text-secondary)">RB · 29</span><span>$6M</span><button class="interest-btn hot">Watching</button><span class="badge badge-gold">Visit</span></div>
+      </div>
+    </div>
+
+    <!-- DEPTH CHART -->
+    <div class="section" id="sec-depth">
+      <div class="page-title">Depth Chart</div>
+      <div class="page-sub">53-man depth by position group</div>
+      <div class="two-col">
+        <div class="card card-accent">
+          <div class="card-header"><div class="card-title">Offense</div></div>
+          <table class="depth-table">
+            <tr><th>Pos</th><th>Starter</th><th>Backup</th><th>3rd</th></tr>
+            <tr><td class="depth-pos">QB</td><td class="starter">C.J. Stroud</td><td class="backup">Case Keenum</td><td class="backup">—</td></tr>
+            <tr><td class="depth-pos">RB</td><td class="starter">D. Pierce</td><td class="backup">D. Watson</td><td class="backup">J. Berry</td></tr>
+            <tr><td class="depth-pos">WR1</td><td class="starter">S. Diggs</td><td class="backup">N. Brown</td><td class="backup">—</td></tr>
+            <tr><td class="depth-pos">WR2</td><td class="starter">Tank Dell</td><td class="backup">T. Metchie</td><td class="backup">—</td></tr>
+            <tr><td class="depth-pos">TE</td><td class="starter">D. Schultz</td><td class="backup">B. Breeland</td><td class="backup">—</td></tr>
+            <tr><td class="depth-pos">LT</td><td class="starter">L. Tunsil</td><td class="backup">C. Castonzo</td><td class="backup">—</td></tr>
+            <tr><td class="depth-pos">C</td><td class="starter">J. Pierschbacher</td><td class="backup">N. Martin</td><td class="backup">—</td></tr>
+          </table>
+        </div>
+        <div class="card card-blue-accent">
+          <div class="card-header"><div class="card-title">Defense</div></div>
+          <table class="depth-table">
+            <tr><th>Pos</th><th>Starter</th><th>Backup</th><th>3rd</th></tr>
+            <tr><td class="depth-pos">EDGE</td><td class="starter">W. Anderson</td><td class="backup">D. Hunter</td><td class="backup">—</td></tr>
+            <tr><td class="depth-pos">DT</td><td class="starter">S. Rankins</td><td class="backup">K. Williams</td><td class="backup">—</td></tr>
+            <tr><td class="depth-pos">ILB</td><td class="starter">C. Harris</td><td class="backup">H. Owusu</td><td class="backup">—</td></tr>
+            <tr><td class="depth-pos">CB1</td><td class="starter">D. Stingley Jr.</td><td class="backup">S. Thomas</td><td class="backup">—</td></tr>
+            <tr><td class="depth-pos">CB2</td><td class="starter">S. Thomas</td><td class="backup">TBD</td><td class="backup">—</td></tr>
+            <tr><td class="depth-pos">SS</td><td class="starter">J. Pitre</td><td class="backup">M. Sanborn</td><td class="backup">—</td></tr>
+            <tr><td class="depth-pos">FS</td><td class="starter">J. Ward</td><td class="backup">TBD</td><td class="backup">—</td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- NEWS -->
+    <div class="section" id="sec-news">
+      <div class="page-title">News & Intel</div>
+      <div class="page-sub">Player news, injuries & transactions</div>
+      <div class="two-col">
+        <div class="card card-accent">
+          <div class="card-header"><div class="card-title">Breaking</div></div>
+          <div class="news-item"><div class="news-pip"></div><div><div class="news-title">Stroud contract talks heating up</div><div class="news-meta"><span class="news-tag">Contract ·</span> 2h · NFL Network</div></div></div>
+          <div class="news-item"><div class="news-pip blue"></div><div><div class="news-title">Will Anderson named to Pro Bowl</div><div class="news-meta"><span class="news-tag">Award ·</span> 4h · ESPN</div></div></div>
+          <div class="news-item"><div class="news-pip gold"></div><div><div class="news-title">Tank Dell cleared for OTAs</div><div class="news-meta"><span class="news-tag">Injury ·</span> 8h · Schefter</div></div></div>
+          <div class="news-item"><div class="news-pip green"></div><div><div class="news-title">UDFA LB signed from Alabama</div><div class="news-meta"><span class="news-tag">Transaction ·</span> 12h · Official</div></div></div>
+          <div class="news-item"><div class="news-pip"></div><div><div class="news-title">DeMeco Ryans presser recap</div><div class="news-meta"><span class="news-tag">Coach ·</span> 1d · stressans.com</div></div></div>
+        </div>
+        <div class="card card-blue-accent">
+          <div class="card-header"><div class="card-title">Injury Report</div></div>
+          <div class="player-row"><div class="player-avatar">TD</div><div><div class="player-name">Tank Dell</div><div class="player-pos">WR · Knee</div></div><span class="badge badge-green" style="margin-left:auto">Cleared</span></div>
+          <div class="player-row"><div class="player-avatar">DP</div><div><div class="player-name">Dameon Pierce</div><div class="player-pos">RB · Ankle</div></div><span class="badge badge-gold" style="margin-left:auto">Limited</span></div>
+          <div class="player-row"><div class="player-avatar">SR</div><div><div class="player-name">Sheldon Rankins</div><div class="player-pos">DT · Shoulder</div></div><span class="badge badge-red" style="margin-left:auto">Out</span></div>
+          <div class="player-row"><div class="player-avatar">JW</div><div><div class="player-name">Jimmie Ward</div><div class="player-pos">S · Hamstring</div></div><span class="badge badge-green" style="margin-left:auto">Full</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCOUTING -->
+    <div class="section" id="sec-scouting">
+      <div class="page-title">Scouting Board</div>
+      <div class="page-sub">2026 NFL Draft · Stressans top targets</div>
+      <div class="scout-grid">
+        <div class="scout-card" onclick="sendPrompt('Break down Abdul Carter as a draft target for the Houston Stressans at pick #18')"><div class="scout-rank">#1</div><div class="scout-name">Abdul Carter</div><div class="scout-pos">EDGE</div><div class="scout-school">Penn State</div></div>
+        <div class="scout-card" onclick="sendPrompt('Break down Jalon Walker as a draft target for the Houston Stressans')"><div class="scout-rank">#2</div><div class="scout-name">Jalon Walker</div><div class="scout-pos">LB / EDGE</div><div class="scout-school">Georgia</div></div>
+        <div class="scout-card" onclick="sendPrompt('Break down Kelvin Banks Jr as a draft target for the Houston Stressans')"><div class="scout-rank">#3</div><div class="scout-name">Kelvin Banks Jr.</div><div class="scout-pos">OT</div><div class="scout-school">Texas</div></div>
+        <div class="scout-card" onclick="sendPrompt('Break down Will Johnson as a CB draft target for the Houston Stressans')"><div class="scout-rank">#4</div><div class="scout-name">Will Johnson</div><div class="scout-pos">CB</div><div class="scout-school">Michigan</div></div>
+        <div class="scout-card"><div class="scout-rank">#5</div><div class="scout-name">Mason Graham</div><div class="scout-pos">DT</div><div class="scout-school">Michigan</div></div>
+        <div class="scout-card"><div class="scout-rank">#6</div><div class="scout-name">Tetairoa McMillan</div><div class="scout-pos">WR</div><div class="scout-school">Arizona</div></div>
+        <div class="scout-card"><div class="scout-rank">#7</div><div class="scout-name">James Pearce Jr.</div><div class="scout-pos">EDGE</div><div class="scout-school">Tennessee</div></div>
+        <div class="scout-card"><div class="scout-rank">#8</div><div class="scout-name">Luther Burden III</div><div class="scout-pos">WR</div><div class="scout-school">Missouri</div></div>
+      </div>
+      <div class="card" style="margin-top:14px">
+        <div class="card-header"><div class="card-title">Position Grades vs League Avg</div></div>
+        <div style="display:grid; gap:10px;">
+          <div style="display:flex; align-items:center; gap:10px; font-size:12px;"><span style="width:44px; font-family:'Bebas Neue',sans-serif; font-size:14px; color:var(--bull-red);">QB</span><div class="cap-bar" style="flex:1; margin:0;"><div class="cap-fill cap-green" style="width:95%"></div></div><span style="width:28px; text-align:right; font-weight:700; color:#1D9E75;">A+</span></div>
+          <div style="display:flex; align-items:center; gap:10px; font-size:12px;"><span style="width:44px; font-family:'Bebas Neue',sans-serif; font-size:14px; color:var(--bull-red);">WR</span><div class="cap-bar" style="flex:1; margin:0;"><div class="cap-fill cap-blue" style="width:80%"></div></div><span style="width:28px; text-align:right; font-weight:700;">B+</span></div>
+          <div style="display:flex; align-items:center; gap:10px; font-size:12px;"><span style="width:44px; font-family:'Bebas Neue',sans-serif; font-size:14px; color:var(--bull-red);">OL</span><div class="cap-bar" style="flex:1; margin:0;"><div class="cap-fill cap-warn" style="width:60%"></div></div><span style="width:28px; text-align:right; font-weight:700; color:#854F0B;">C+</span></div>
+          <div style="display:flex; align-items:center; gap:10px; font-size:12px;"><span style="width:44px; font-family:'Bebas Neue',sans-serif; font-size:14px; color:var(--bull-red);">EDGE</span><div class="cap-bar" style="flex:1; margin:0;"><div class="cap-fill cap-green" style="width:87%"></div></div><span style="width:28px; text-align:right; font-weight:700; color:#1D9E75;">A-</span></div>
+          <div style="display:flex; align-items:center; gap:10px; font-size:12px;"><span style="width:44px; font-family:'Bebas Neue',sans-serif; font-size:14px; color:var(--bull-red);">CB</span><div class="cap-bar" style="flex:1; margin:0;"><div class="cap-fill cap-warn" style="width:54%"></div></div><span style="width:28px; text-align:right; font-weight:700; color:#854F0B;">C</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+function showSection(id, btn) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('sec-' + id).classList.add('active');
+  btn.classList.add('active');
+}
+function filterFA(btn, pos) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.fa-row[data-pos]').forEach(r => {
+    r.style.display = (pos === 'all' || r.dataset.pos === pos) ? '' : 'none';
+  });
+}
+</script>
