@@ -1,0 +1,5 @@
+{
+  "rewrites": [
+    { "source": "/", "destination": "/houston_stressans_command.html" }
+  ]
+}
